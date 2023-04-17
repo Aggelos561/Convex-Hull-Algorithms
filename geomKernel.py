@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 def gen_random_points(size, dim):
     rng = np.random.default_rng()
-    return [tuple(p) for p in rng.random((size, dim))]
+    return [tuple(p) for p in rng.random((size, dim), dtype=np.float64)]
 
 
 def sort_points(points):
