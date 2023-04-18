@@ -26,11 +26,8 @@ def find_known_point(red_seg, convex_points):
             return point
 
 
-def find_red_segments(possible_reds, point, convex_points):
+def find_red_segment(possible_reds, point, convex_points):
     
-    red_segments = []
-    blue_segments = []
-
     print(f'point = {point}')
 
     for possible_red in possible_reds:
@@ -41,13 +38,9 @@ def find_red_segments(possible_reds, point, convex_points):
 
         # Red
         if CCW(possible_red[0], possible_red[1], point) * CCW(possible_red[0], possible_red[1], a1) < 0:
-            red_segments.append(possible_red)
-        
-        # Blue
-        else:
-            blue_segments.append(possible_red)
+           return possible_red
     
-    return red_segments, blue_segments
+    return None
 
 
 
@@ -68,14 +61,12 @@ def beneathBeyond(points):
 
         possible_reds = find_possible_reds(convex_segments, points_list[k-1])
 
-        red_segments, blue_segments = find_red_segments(possible_reds, point, convex_points)
+        red_segment = find_red_segment(possible_reds, point, convex_points)
 
-        print(f'red segments = {red_segments}')
-        print(f'blue segments = {blue_segments}')
+        print(f'red segment = {red_segment}')
         break
 
     return triangle_points
-
 
 
 
