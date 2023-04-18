@@ -8,8 +8,8 @@ def gen_random_points(size, dim):
     return [tuple(p) for p in rng.random((size, dim), dtype=np.float64)]
 
 
-def sort_points(points):
-    return sorted(points)
+def sort_points(points, ascending=True):
+    return sorted(points) if ascending else sorted(points, reverse=not ascending)
 
 
 def show_convexHull(vertices, points):
@@ -41,6 +41,11 @@ def is_CW(x1, x2, x3):
 def is_CCW(x1, x2, x3):
     matrix = create_orientation_matrix(x1, x2, x3)
     return True if np.linalg.det(matrix) > 0 else False
+
+
+def CCW(x1, x2, x3):
+    matrix = create_orientation_matrix(x1, x2, x3)
+    return -1 if np.linalg.det(matrix) > 0 else 1
 
 
 def points_equal(x1, x2):
@@ -95,3 +100,15 @@ def check_subspace(cPoints1, cPoints2, a_index, a_index_next, a_random, b_index,
             flag_b= True
 
     return flag_a, flag_b
+
+
+def create_segments(points):
+
+    segments = []
+
+    points_size = len(points)
+
+    for i in range(points_size):
+        segments.append((points[i], points[(i + 1) % points_size]))
+    
+    return segments

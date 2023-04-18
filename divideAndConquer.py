@@ -1,6 +1,7 @@
 import numpy as np
 from geomKernel import *
 from quickHull import *
+import random
 
 
 def get_bridge(cPoints1, cPoints2, mode):
@@ -177,7 +178,7 @@ def divideAndConquer(points):
 
 if __name__ == '__main__':
 
-    points_list = gen_random_points(random.randint(100000, 100000), 2)
+    points_list = gen_random_points(random.randint(80, 80), 2)
     vertices = divideAndConquer(points_list)
     show_convexHull(vertices, points_list)
 
