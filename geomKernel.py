@@ -50,11 +50,14 @@ def points_equal(x1, x2):
 
     return True
 
+
 def get_rightmost_index(points):
     return points.index(max(points))
 
+
 def get_leftmost_index(points):
     return points.index(min(points))
+
 
 def get_next_index_a(a_index, p_size, mode):
 

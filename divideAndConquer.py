@@ -59,15 +59,21 @@ def merge(convexPoints1, convexPoints2):
 
     p_left = convexPoints1[get_leftmost_index(convexPoints1)]
 
+    upper_in = False
+
     found_start = False
     stop_circle = False
     while True:
+
         for p1 in convexPoints1:
-            
+
             if p1 == p_left and not found_start:
                 found_start = True
+                if p_left == upper_points[0]:
+                    upper_in = True
 
             if found_start:
+
                 convex.append(p1)
 
                 if p1 == lower_points[0]:
@@ -77,6 +83,7 @@ def merge(convexPoints1, convexPoints2):
         
         if stop_circle:
             break
+    
 
     found_start = False
     stop_circle = False
@@ -91,20 +98,29 @@ def merge(convexPoints1, convexPoints2):
             if found_start:
                 
                 if (upper_points[1] == lower_points[1]):
-                    convex.append(upper_points[0])
+                    
+                    if not upper_in:
+                        convex.append(upper_points[0])
+                        
                     stop_circle = True
                     break
                 
                 if p2 != upper_points[0]:
+                    
                     convex.append(p2)
+                   
                 
                 if p2 == upper_points[1]:
-                    convex.append(upper_points[0])
+ 
+                    if not upper_in:
+                        convex.append(upper_points[0])
+
                     stop_circle = True
                     break
         
         if stop_circle:
             break
+
 
     found_start = False
     stop_circle = False
@@ -130,7 +146,7 @@ def merge(convexPoints1, convexPoints2):
                     
         if stop_circle:
             break
-
+    
     return convex
 
 def split(points):
@@ -161,18 +177,9 @@ def divideAndConquer(points):
 
 if __name__ == '__main__':
 
-    for i in range(10000):
-        points_list = gen_random_points(random.randint(80, 80), 2)
-
-        vertices = divideAndConquer(points_list)
-
-        vertices_set = set(vertices)
-        if len(vertices) != len(vertices_set):
-            print('Duplicates Found')
-        else:
-            print('No duplicates')
-
-        show_convexHull(vertices, points_list)
+    points_list = gen_random_points(random.randint(100000, 100000), 2)
+    vertices = divideAndConquer(points_list)
+    show_convexHull(vertices, points_list)
 
 
 
