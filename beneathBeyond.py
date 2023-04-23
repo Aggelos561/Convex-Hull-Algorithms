@@ -1,6 +1,6 @@
 import numpy as np
 from geomKernel import *
-from quickHull import *
+from giftWrapping import *
 import random
 
 
@@ -27,14 +27,10 @@ def find_known_point(red_seg, convex_points):
 
 
 def find_red_segment(possible_reds, point, convex_points):
-    
-    print(f'point = {point}')
 
     for possible_red in possible_reds:
 
         a1 = find_known_point(possible_red, convex_points)
-        print(possible_red)
-        print(a1)
 
         # Red
         if CCW(possible_red[0], possible_red[1], point) * CCW(possible_red[0], possible_red[1], a1) < 0:
@@ -69,6 +65,7 @@ def find_crimson_points(red_seg, convex_segments, convex_points, point):
                     crimson_points.append(segment[crimson_counter])
                     crimson_counter += 1
                     convex.reverse()
+                    found_red = False
                     break
                 
                 else:
@@ -83,20 +80,32 @@ def restructure_convex(convex_segments, convex_points, red_segments, crimson_poi
     for red in set(red_segments):
         convex_segments.remove(red)
 
-    print(f'CONVEX = {convex_segments}')
+    addition_index = 0
+    for i in range(len(convex_segments)):
+        if convex_segments[i][1] == crimson_points[1]:
+            addition_index = i
+            break
 
-    # for segment in convex_segments:
-    #     if segment[0] == crimson_points[0]:
-    #         pass
+    # crimson_segments = [(crimson_points[1], point), (point, crimson_points[0])]
+
+    # addition_index = addition_index #- 1 if addition_index - 1 >=0 else len(convex_segments)
+    # convex_segments = convex_segments[:addition_index] + [convex_segments[addition_index]] + crimson_segments + convex_segments[(addition_index+1)%len(convex_segments):]
+
+    new_convex = []
+    for i in range(len(convex_segments)):
+        if i <= addition_index:
+            new_convex.append(convex_segments[i])
+    
+    new_convex.append((crimson_points[1], point))
+    new_convex.append((point, crimson_points[0]))
+        
+    for i in range(len(convex_segments)):
+        if i > addition_index:
+            new_convex.append(convex_segments[i])
+
+    convex_segments = new_convex
 
     convex_points = [segment[0] for segment in convex_segments]
-    convex_points.append(crimson_points[0])
-    convex_points.append(crimson_points[1])
-    convex_points.append(point)
-
-    print(f'convex points = {convex_points}')
-    convex_points = quickHull(convex_points)
-    convex_segments = create_segments(convex_points)
 
     return convex_points, convex_segments
 
@@ -106,7 +115,8 @@ def beneathBeyond(points):
     points_list = sort_points(points, ascending=False)
     points_size = len(points_list)
 
-    triangle_points = [p for p in reversed(points_list[:3])]
+    # triangle_points = [p for p in reversed(points_list[:3])]
+    triangle_points = gift_wrapping(points_list[:3]);
     
     convex_points = triangle_points
     convex_segments = create_segments(triangle_points)
@@ -123,8 +133,9 @@ def beneathBeyond(points):
 
         convex_points, convex_segments = restructure_convex(convex_segments, convex_points, all_reds, crimson_points, point)
 
-        print(f'red segments = {all_reds}')
-        print(f'crimson points = {crimson_points}')
+        # print(f'red segments = {set(all_reds)}')
+        # print(f'convex points = {convex_points}')
+        # print(f'crimson points = {crimson_points}')
 
     return convex_points
 
@@ -132,6 +143,6 @@ def beneathBeyond(points):
 
 
 if __name__ == '__main__':
-    points_list = gen_random_points(random.randint(8, 8), 2)
+    points_list = gen_random_points(random.randint(20, 20), 2)
     vertices = beneathBeyond(points_list)
     show_convexHull(vertices, points_list)
