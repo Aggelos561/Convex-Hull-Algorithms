@@ -129,8 +129,6 @@ def beneathBeyond(points):
     return convex_points
 
 
-
-
 if __name__ == '__main__':
     points_list = gen_random_points(random.randint(80, 80), 2)
     vertices = beneathBeyond(points_list)

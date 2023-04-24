@@ -2,7 +2,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-
 def gen_random_points(size, dim):
     rng = np.random.default_rng()
     return [tuple(p) for p in rng.random((size, dim), dtype=np.float64)]
@@ -23,6 +22,19 @@ def show_convexHull(vertices, points):
         plt.plot([x[i], x[(i+1) % len(vertices)]], [y[i], y[(i+1) % len(vertices)]], 'bo--')
     
     plt.show()
+
+
+def show_convexHull3D(hull, points):
+
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
+
+    ax.plot(points[:,0], points[:,1], points[:,2], 'o')
+    for simplex in hull.simplices:
+        ax.plot(points[simplex, 0], points[simplex, 1], points[simplex, 2], 'k-')
+
+    plt.show()
+
 
 def create_orientation_matrix(x1, x2, x3):
     return np.array([[1, x1[0], x1[1]], [1, x2[0], x2[1]], [1, x3[0], x3[1]]])
