@@ -1,4 +1,3 @@
-import numpy as np
 from geomKernel import *
 from giftWrapping import *
 import random
@@ -72,12 +71,12 @@ def find_crimson_points(red_seg, convex_segments, convex_points, point):
                     all_red_segments.append(red_segment_check)
 
         if crimson_counter == 2:
-            return all_red_segments, crimson_points
+            return set(all_red_segments), crimson_points
           
 
 def restructure_convex(convex_segments, convex_points, red_segments, crimson_points, point):
     
-    for red in set(red_segments):
+    for red in red_segments:
         convex_segments.remove(red)
 
     addition_index = 0
@@ -85,11 +84,6 @@ def restructure_convex(convex_segments, convex_points, red_segments, crimson_poi
         if convex_segments[i][1] == crimson_points[1]:
             addition_index = i
             break
-
-    # crimson_segments = [(crimson_points[1], point), (point, crimson_points[0])]
-
-    # addition_index = addition_index #- 1 if addition_index - 1 >=0 else len(convex_segments)
-    # convex_segments = convex_segments[:addition_index] + [convex_segments[addition_index]] + crimson_segments + convex_segments[(addition_index+1)%len(convex_segments):]
 
     new_convex = []
     for i in range(len(convex_segments)):
@@ -115,7 +109,6 @@ def beneathBeyond(points):
     points_list = sort_points(points, ascending=False)
     points_size = len(points_list)
 
-    # triangle_points = [p for p in reversed(points_list[:3])]
     triangle_points = gift_wrapping(points_list[:3]);
     
     convex_points = triangle_points
@@ -133,16 +126,12 @@ def beneathBeyond(points):
 
         convex_points, convex_segments = restructure_convex(convex_segments, convex_points, all_reds, crimson_points, point)
 
-        # print(f'red segments = {set(all_reds)}')
-        # print(f'convex points = {convex_points}')
-        # print(f'crimson points = {crimson_points}')
-
     return convex_points
 
 
 
 
 if __name__ == '__main__':
-    points_list = gen_random_points(random.randint(20, 20), 2)
+    points_list = gen_random_points(random.randint(80, 80), 2)
     vertices = beneathBeyond(points_list)
     show_convexHull(vertices, points_list)
