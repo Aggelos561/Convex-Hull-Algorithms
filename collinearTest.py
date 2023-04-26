@@ -8,21 +8,21 @@ from geomKernel import *
 points_collinear_list = [(1, 1), (2, 3), (4, 2), (3, 1), (5, 6), (7, 6), (8, 8), (8, 10), (8, 12), (5, 12), (1, 12)]
 
 # Check collinear for beneath beyond algorithm
-vertices = beneathBeyond(points_collinear_list)
-show_convexHull(vertices, points_collinear_list, "Beneath Beyond", True)
+hull_points = beneathBeyond(points_collinear_list)
+show_convexHull(hull_points, points_collinear_list, "Beneath Beyond", True)
 
 
 # Check collinear for gift wrapping algorithm
-vertices = gift_wrapping(points_collinear_list)
-show_convexHull(vertices, points_collinear_list, "Gift Wrapping", True)
+hull_points = gift_wrapping(points_collinear_list)
+show_convexHull(hull_points, points_collinear_list, "Gift Wrapping", True)
 
 
 # Check collinear for divide and conquer algorithm
-vertices = divideAndConquer(points_collinear_list)
-show_convexHull(vertices, points_collinear_list, "Divide and Conquer", True)
+hull_points = divideAndConquer(points_collinear_list)
+show_convexHull(hull_points, points_collinear_list, "Divide and Conquer", True)
 
 
 # Check collinear for quick hull algorithm
-vertices = quickHull(points_collinear_list)
-show_convexHull(vertices, points_collinear_list, "Quick Hull", True)
+hull_points = quickHull(points_collinear_list)
+show_convexHull(hull_points, points_collinear_list, "Quick Hull", True)
 
