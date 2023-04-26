@@ -1,6 +1,5 @@
 from geomKernel import *
 from quickHull import quickHull
-import random
 
 
 
@@ -16,13 +15,10 @@ def find_possible_reds(segments, point):
 
 
 def find_known_point(red_seg, convex_points):
-    
-    point = convex_points[0]
-    while True:
-        point = random.choice(convex_points)
 
-        if point != red_seg[0] and point != red_seg[1]:
-            return point
+    for k_point in convex_points:
+        if k_point != red_seg[0] and k_point != red_seg[1]:
+            return k_point
 
 
 def find_red_segment(possible_reds, point, convex_points):

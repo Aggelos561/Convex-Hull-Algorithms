@@ -1,7 +1,6 @@
 import numpy as np
 from geomKernel import *
 from quickHull import *
-import random
 
 
 def get_bridge(cPoints1, cPoints2, mode):
@@ -32,15 +31,15 @@ def get_bridge(cPoints1, cPoints2, mode):
         b_index_prev = get_next_index_b(b_index, c2_size, mode)
 
         a_random = cPoints1[0]
-        while True:
-            a_random = random.choice(cPoints1)
-            if a_random != cPoints1[a_index] and a_random != cPoints1[a_index_next]:
+        for r_point in cPoints1:
+            if r_point != cPoints1[a_index] and r_point != cPoints1[a_index_next]:
+                a_random = r_point
                 break
 
         b_random = cPoints2[0]
-        while True:
-            b_random = random.choice(cPoints2)
-            if b_random != cPoints2[b_index] and b_random != cPoints2[b_index_prev]:
+        for r_point in cPoints2:
+            if r_point != cPoints2[b_index] and r_point != cPoints2[b_index_prev]:
+                b_random = r_point
                 break
 
         flag_a, flag_b = check_subspace(cPoints1, cPoints2, a_index, a_index_next, a_random, b_index, b_index_prev, b_random, mode)
@@ -171,6 +170,10 @@ def split(points):
 def divideAndConquer(points):
 
     points_list = sort_points(points)
+
+    if len(points) < 6:
+        return quickHull(points)
+
     return split(points_list)
 
 

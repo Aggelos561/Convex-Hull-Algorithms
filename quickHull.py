@@ -1,6 +1,5 @@
 from scipy.spatial import ConvexHull
 from geomKernel import *
-import random
 
 
 def quickHull(points):
