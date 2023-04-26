@@ -8,8 +8,7 @@ import pandas as pd
 
 
 algorithms_list = [(beneathBeyond, 'Beneath Beyond') , (gift_wrapping, 'Gift Wrapping'), 
-                   (divideAndConquer, 'Divide and Conquer'), (quickHull, 'Quick Hull')
-                   ]
+                   (divideAndConquer, 'Divide and Conquer'), (quickHull, 'Quick Hull')]
 
 df_times = pd.DataFrame(columns=['Size'] + [algo[1] for algo in algorithms_list])
 
