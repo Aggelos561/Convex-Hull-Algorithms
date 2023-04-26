@@ -177,6 +177,10 @@ def divideAndConquer(points):
 
 if __name__ == '__main__':
 
-    points_list = gen_random_points(random.randint(10, 80), 2)
-    vertices = divideAndConquer(points_list)
-    show_convexHull(vertices, points_list)
+    from pprint import pprint
+
+    points_list = gen_random_points(80, 2)
+    hull_points = divideAndConquer(points_list)
+
+    pprint(hull_points)
+    show_convexHull(hull_points, points_list, title='Divide and Conquer')

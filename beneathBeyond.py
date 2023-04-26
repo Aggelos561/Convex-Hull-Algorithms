@@ -1,5 +1,5 @@
 from geomKernel import *
-from giftWrapping import *
+from quickHull import quickHull
 import random
 
 
@@ -109,7 +109,7 @@ def beneathBeyond(points):
     points_list = sort_points(points, ascending=False)
     points_size = len(points_list)
 
-    triangle_points = gift_wrapping(points_list[:3]);
+    triangle_points = quickHull(points_list[:3]);
     
     convex_points = triangle_points
     convex_segments = create_segments(triangle_points)
@@ -130,6 +130,11 @@ def beneathBeyond(points):
 
 
 if __name__ == '__main__':
-    points_list = gen_random_points(random.randint(10, 80), 2)
-    vertices = beneathBeyond(points_list)
-    show_convexHull(vertices, points_list)
+
+    from pprint import pprint
+
+    points_list = gen_random_points(80, 2)
+    hull_points = beneathBeyond(points_list)
+
+    pprint(hull_points)
+    show_convexHull(hull_points, points_list, title='Beneath Beyond')

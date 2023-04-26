@@ -37,7 +37,12 @@ def gift_wrapping(points):
 
 
 if __name__ == '__main__':
-    points_list = gen_random_points(random.randint(10, 80), 2)
-    vertices = gift_wrapping(points_list)
-    show_convexHull(vertices, points_list)
+
+    from pprint import pprint
+
+    points_list = gen_random_points(80, 2)
+    hull_points = gift_wrapping(points_list)
+
+    pprint(hull_points)
+    show_convexHull(hull_points, points_list, title='Gift Wrapping')
 

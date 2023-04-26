@@ -11,7 +11,7 @@ def sort_points(points, ascending=True):
     return sorted(points) if ascending else sorted(points, reverse=not ascending)
 
 
-def show_convexHull(vertices, points):
+def show_convexHull(vertices, points, title=None, tone_col=False):
 
     plt.scatter([p[0] for p in points], [p[1] for p in points])
 
@@ -19,7 +19,10 @@ def show_convexHull(vertices, points):
     y = [p[1] for p in vertices]
 
     for i in range(len(vertices)):
-        plt.plot([x[i], x[(i+1) % len(vertices)]], [y[i], y[(i+1) % len(vertices)]], 'bo--')
+        plt.plot([x[i], x[(i+1) % len(vertices)]], [y[i], y[(i+1) % len(vertices)]], 'bo--' if not tone_col else 'ro--')
+    
+    if title is not None:
+        plt.title(title)
     
     plt.show()
 
@@ -33,6 +36,7 @@ def show_convexHull3D(hull, points):
     for simplex in hull.simplices:
         ax.plot(points[simplex, 0], points[simplex, 1], points[simplex, 2], 'k-')
 
+    plt.title('Quick Hull 3D')
     plt.show()
 
 
