@@ -134,9 +134,13 @@ def activate_live_plot():
     plt.ion()
 
 
-def live_plot_convex_hull(vertices, points):
+def live_plot_convex_hull(vertices, points, k=0):
     show_convexHull(vertices, points)
+    
     plt.draw()
-    plt.pause(2)
-    plt.clf()
-
+    
+    if k != len(points) - 1:
+        plt.pause(2)
+        plt.clf()
+    else:
+        plt.pause(60)

@@ -3,6 +3,6 @@ from beneathBeyond import beneathBeyond
 
 # Step by step visualization of Beneath Beyond algorithm
 
-points_list = gen_random_points(20, 2)
+points_list = gen_random_points(15, 2)
 
 beneathBeyond(points_list, visualize=True)

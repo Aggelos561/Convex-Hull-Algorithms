@@ -128,7 +128,7 @@ def beneathBeyond(points, visualize=False):
         convex_points, convex_segments = restructure_convex(convex_segments, convex_points, all_reds, crimson_points, point)
         
         if visualize:
-            live_plot_convex_hull(convex_points, points_list)
+            live_plot_convex_hull(convex_points, points_list, k=k)
 
     return convex_points
 
