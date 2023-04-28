@@ -8,7 +8,7 @@ def gen_random_points(size, dim):
 
 
 def sort_points(points, ascending=True):
-    return sorted(points) if ascending else sorted(points, reverse=not ascending)
+    return sorted(points, key=lambda p: (p[0], p[1])) if ascending else sorted(points, reverse = not ascending, key=lambda p: (p[0], p[1]))
 
 
 def show_convexHull(vertices, points, title=None, tone_col=False):
@@ -128,3 +128,15 @@ def create_segments(points):
         segments.append((points[i], points[(i + 1) % points_size]))
     
     return segments
+
+
+def activate_live_plot():
+    plt.ion()
+
+
+def live_plot_convex_hull(vertices, points):
+    show_convexHull(vertices, points)
+    plt.draw()
+    plt.pause(2)
+    plt.clf()
+

@@ -2,7 +2,6 @@ from geomKernel import *
 from quickHull import quickHull
 
 
-
 def find_possible_reds(segments, point):
 
     possible_reds = []
@@ -100,12 +99,18 @@ def restructure_convex(convex_segments, convex_points, red_segments, crimson_poi
     return convex_points, convex_segments
 
 
-def beneathBeyond(points):
+def beneathBeyond(points, visualize=False):
     
+    if visualize:
+        activate_live_plot()
+
     points_list = sort_points(points, ascending=False)
     points_size = len(points_list)
 
-    triangle_points = quickHull(points_list[:3]);
+    triangle_points = quickHull(points_list[:3])
+    
+    if visualize:
+        live_plot_convex_hull(triangle_points, points_list)
     
     convex_points = triangle_points
     convex_segments = create_segments(triangle_points)
@@ -121,6 +126,9 @@ def beneathBeyond(points):
         all_reds, crimson_points = find_crimson_points(red_segment, convex_segments, convex_points, point)
 
         convex_points, convex_segments = restructure_convex(convex_segments, convex_points, all_reds, crimson_points, point)
+        
+        if visualize:
+            live_plot_convex_hull(convex_points, points_list)
 
     return convex_points
 
