@@ -22,7 +22,7 @@ while size <= 100000:
     for algorithm, name in algorithms_list:
         start = time.perf_counter()
 
-        hull_points = beneathBeyond(points_list)
+        hull_points = algorithm(points_list)
 
         end = time.perf_counter()
         total_time = end - start
