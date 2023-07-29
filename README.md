@@ -42,7 +42,7 @@
 
 ## Execution
 
-2. Run any of the algorithms:
+- Run any of the algorithms:
 
    ```bash
    python beneathBeyond.py
